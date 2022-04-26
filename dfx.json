@@ -1,0 +1,22 @@
+{
+    "canisters": {
+      "nft_registry": {
+        "candid": "candid/nft.did",
+        "wasm": "wasm/nft.wasm",
+        "type": "custom"
+      },
+      "dip721": {
+        "candid": "candid/dip721.did",
+        "wasm": "wasm/dip721.wasm",
+        "type": "custom"
+      }
+    },
+    "networks": {
+      "local": {
+        "bind": "127.0.0.1:8000",
+        "type": "ephemeral"
+      }
+    },
+    "version": 1
+  }
+  
