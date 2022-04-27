@@ -12,7 +12,7 @@ dip721=$(dfx canister id dip721)
 dfx canister call nft_registry add "(
   record {
     thumbnail = \"https://qcg3w-tyaaa-aaaah-qakea-cai.raw.ic0.app/Token/1\";
-    name = \"Dip721\";
+    name = \"Dip721v2\";
     frontend = opt \"https://icpunks.com/\";
     description = \"example nft\";
     principal_id = principal \"$dip721\";
