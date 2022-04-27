@@ -2,8 +2,6 @@ import { HttpAgent } from "@dfinity/agent";
 import { Principal } from "@dfinity/principal";
 import { getAllUserNFTs, getNFTActor, getAllNFTS } from "@psychedelic/dab-js";
 import fetch from "node-fetch";
-import textEncoding from "text-encoding";
-import crypto from "@trust/webcrypto";
 
 // global.crypto = crypto;
 // global.TextEncoder = textEncoding.TextEncoder;
@@ -39,15 +37,42 @@ const makeAgent = async () => {
 // };
 // getUserNFTs();
 
+// const principal =
+//     "y4nw3-upugh-yyv2b-jv6jy-ppfse-4fkfd-uaqv5-woqup-u3cx3-hah2c-yae";
+const principal =
+  "oorz3-h6wp7-4vd3v-h6n2l-fmwdt-lfbid-f4q5d-67bb4-v6e2j-ep6v3-cae";
+
 const getNFTCollections = async () => {
-  const principal =
-    "y4nw3-upugh-yyv2b-jv6jy-ppfse-4fkfd-uaqv5-woqup-u3cx3-hah2c-yae";
   const collections = await getAllUserNFTs({
     agent: await makeAgent(),
-    user: Principal.fromText(principal),
+    user: principal,
   });
 
   console.log("out", collections[0].tokens);
 };
 
 getNFTCollections();
+
+// const transferNFT = () => {
+//   try {
+//     const agent = await makeAgent();
+
+//     const NFT = getNFTActor({
+//       canisterId: 'r7inp-6aaaa-aaaaa-aaabq-cai',
+//       agent,
+//       standard: 'DIP721v2',
+//     });
+
+//     await NFT.transfer(
+//       Principal.fromText(to),
+//       20
+//     );
+
+//     const col = await getAllUserNFTs({ user: principal, agent })
+//     console.log('col', col)
+//   } catch (e) {
+//     console.log('transfer err', e)
+//   }
+//  }
+
+//  transferNFT();
