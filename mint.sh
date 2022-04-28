@@ -6,7 +6,7 @@ fi
 
 dfx canister call dip721 mint "(
   principal \"$principal\",
-  1 : nat,
+  2 : nat,
   vec {
     record {
       \"prop2\";

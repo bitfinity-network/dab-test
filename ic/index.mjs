@@ -48,10 +48,10 @@ const makeAgent = async () => {
 // };
 // getUserNFTs();
 const canisterId = 'rrkah-fqaaa-aaaaa-aaaaq-cai';
-const principal =
-  "y4nw3-upugh-yyv2b-jv6jy-ppfse-4fkfd-uaqv5-woqup-u3cx3-hah2c-yae";
 // const principal =
-//   "oorz3-h6wp7-4vd3v-h6n2l-fmwdt-lfbid-f4q5d-67bb4-v6e2j-ep6v3-cae";
+//   "y4nw3-upugh-yyv2b-jv6jy-ppfse-4fkfd-uaqv5-woqup-u3cx3-hah2c-yae";
+const principal =
+  "oorz3-h6wp7-4vd3v-h6n2l-fmwdt-lfbid-f4q5d-67bb4-v6e2j-ep6v3-cae";
 
 const getNFTCollections = async () => {
   const collections = await getAllUserNFTs({
