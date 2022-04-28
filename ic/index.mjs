@@ -8,6 +8,17 @@ import fetch from "node-fetch";
 // global.TextDecoder = textEncoding.TextDecoder;
 global.fetch = fetch;
 
+const replacer = (key, value) => {
+  return typeof value === "bigint" ? value.toString() + "n" : value;
+};
+
+const reviver = (key, value) => {
+  if (typeof value === "string" && /^\d+n$/.test(value)) {
+    return BigInt(value.substring(0, value.length - 1));
+  }
+  return value;
+};
+
 const makeAgent = async () => {
   const agent = new HttpAgent({ host: "http://localhost:8000" });
   await agent.fetchRootKey();
@@ -36,19 +47,21 @@ const makeAgent = async () => {
 //   console.log("usertokens", userTokens);
 // };
 // getUserNFTs();
-
-// const principal =
-//     "y4nw3-upugh-yyv2b-jv6jy-ppfse-4fkfd-uaqv5-woqup-u3cx3-hah2c-yae";
+const canisterId = 'rrkah-fqaaa-aaaaa-aaaaq-cai';
 const principal =
-  "oorz3-h6wp7-4vd3v-h6n2l-fmwdt-lfbid-f4q5d-67bb4-v6e2j-ep6v3-cae";
+  "y4nw3-upugh-yyv2b-jv6jy-ppfse-4fkfd-uaqv5-woqup-u3cx3-hah2c-yae";
+// const principal =
+//   "oorz3-h6wp7-4vd3v-h6n2l-fmwdt-lfbid-f4q5d-67bb4-v6e2j-ep6v3-cae";
 
 const getNFTCollections = async () => {
   const collections = await getAllUserNFTs({
     agent: await makeAgent(),
     user: principal,
+    canisterId
   });
 
-  console.log("out", collections[0].tokens);
+  console.log("col", collections);
+  console.log("tkns", collections[0].tokens);
 };
 
 getNFTCollections();

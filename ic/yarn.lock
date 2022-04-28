@@ -36,7 +36,7 @@
 
 "@psychedelic/dab-js@https://github.com/infinity-swap/DAB-js.git":
   version "1.2.2"
-  resolved "https://github.com/infinity-swap/DAB-js.git#2c1445b470ab43ad2c6b01486628cce940b70ad4"
+  resolved "https://github.com/infinity-swap/DAB-js.git#0aa77e832843817b49cb2687df36a2cc0ee5d90f"
   dependencies:
     "@dfinity/agent" "0.11.1"
     "@dfinity/candid" "0.11.1"
