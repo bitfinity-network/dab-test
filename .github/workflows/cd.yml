@@ -1,0 +1,45 @@
+
+name: "Build & Publish NFT Image & Artifacts"
+
+on:
+  workflow_dispatch:
+    # Just run it
+    
+  push:
+    branches:
+      - 'main'
+    tags:
+      - 'v*'
+      - '!**-test'
+      - '!**-dev'
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    name: Upload NFT Artifacts
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: nft-artifacts
+          path: |
+            ./wasm
+            ./candid
+            
+  publish:
+    needs: [upload]
+    uses: infinity-swap/ci-wf/.github/workflows/publish-dev-image.yml@main
+    with:
+      input-artifact: nft-artifacts
+      dockerfile: ./Dockerfile
+      output-image-name: nft-dev
+      # Condition to use latest tag
+      output-image-tag-latest: ${{ github.ref_type == 'branch' && github.ref == 'refs/heads/main' }}
+      # Condition to publish docker image
+      push-image: ${{ (github.event_name != 'pull_request' && github.ref == 'refs/heads/main') ||  github.ref_type == 'tag' }}
+
+    secrets:
+      gh_token: ${{ secrets.GH_PKG_TOKEN }}
+      gh_login: ${{ secrets.GH_PKG_LOGIN }}
