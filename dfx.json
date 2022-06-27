@@ -1,15 +1,20 @@
 {
     "canisters": {
       "nft_registry": {
-        "candid": "candid/nft.did",
-        "wasm": "wasm/nft.wasm",
+        "candid": "candid/nft_registry.did",
+        "wasm": "wasm/nft_registry.wasm",
         "type": "custom"
       },
       "dip721": {
         "candid": "candid/dip721.did",
         "wasm": "wasm/dip721.wasm",
         "type": "custom"
-      }
+      },
+      "ext": {
+          "candid": "candid/ext.did",
+          "wasm": "wasm/ext.wasm",
+          "type": "custom"
+      } 
     },
     "networks": {
       "local": {
