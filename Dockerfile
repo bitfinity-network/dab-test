@@ -1,4 +1,4 @@
-FROM ghcr.io/infinity-swap/amm-dev:latest
+FROM ghcr.io/infinity-swap/ic-dev-full:latest
 
 COPY wasm/* ./wasm/
 COPY candid/* ./candid/
@@ -10,7 +10,6 @@ RUN J=$(jq ".canisters += {\"nft_registry\":{\"type\":\"custom\",\"wasm\":\"$WOR
 
 RUN (dfx start --background) && ./deploy.sh && (dfx stop)
 
-# ENTRYPOINT  [ "/entrypoint.sh" ]
-CMD ['/bin/bash', '-c', 'dfx start']
+CMD ["/bin/bash", "-c", "dfx start"]
 
 
