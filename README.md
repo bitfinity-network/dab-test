@@ -16,8 +16,8 @@ This repo sets up the dab nft registry, indexes an NFT of the dip721 standard lo
   node index.mjs
   ```
 
-### NOTE
-The dab-js library harcodes the nft registry canister to the what is on mainnet, you will have to edit node_modules/@psychedelic/dab-js/dist/registries/nfts_registry.js
-and change the CANISTER_ID variable to that of the locally deployed nft_registry canister id.
+### AMM IMAGE UPDATE
+When the latest version of the amm-dev image changes, you can update it directly in the Dockerfile and push.
+That should rebuild this container to have the changes from the new amm-dev image, however this will most likely be automated later.
 
 
