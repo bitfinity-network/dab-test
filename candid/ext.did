@@ -1,11 +1,11 @@
 type erc721_token = 
  service {
    acceptCycles: () -> ();
-   allowance: (AllowanceRequest) -> (Result) query;
+   allowance: (AllowanceRequest) -> (Result_1) query;
    approve: (ApproveRequest) -> ();
    availableCycles: () -> (nat) query;
    balance: (BalanceRequest) -> (BalanceResponse) query;
-   bearer: (TokenIdentifier__1) -> (Result_2) query;
+   bearer: (TokenIdentifier__1) -> (Result_3) query;
    extensions: () -> (vec Extension) query;
    getAllowances: () -> (vec record {
                                TokenIndex;
@@ -20,10 +20,11 @@ type erc721_token =
                            TokenIndex;
                            Metadata;
                          }) query;
-   metadata: (TokenIdentifier__1) -> (Result_1) query;
+   metadata: (TokenIdentifier__1) -> (Result_2) query;
    mintNFT: (MintRequest) -> (TokenIndex);
    setMinter: (principal) -> ();
-   supply: (TokenIdentifier__1) -> (Result) query;
+   supply: (TokenIdentifier__1) -> (Result_1) query;
+   tokens_ext: (AccountIdentifier__1) -> (Result) query;
    transfer: (TransferRequest) -> (TransferResponse);
  };
 type User = 
@@ -57,21 +58,32 @@ type TransferRequest =
 type TokenIndex = nat32;
 type TokenIdentifier__1 = text;
 type TokenIdentifier = text;
+type Time = int;
+type SubAccount__1 = vec nat8;
 type SubAccount = vec nat8;
-type Result_2 = 
+type Result_3 = 
  variant {
    err: CommonError;
    ok: AccountIdentifier__1;
  };
-type Result_1 = 
+type Result_2 = 
  variant {
    err: CommonError;
    ok: Metadata;
  };
-type Result = 
+type Result_1 = 
  variant {
    err: CommonError;
    ok: Balance__1;
+ };
+type Result = 
+ variant {
+   err: CommonError;
+   ok: vec record {
+             TokenIndex;
+             opt Listing;
+             opt blob;
+           };
  };
 type MintRequest = 
  record {
@@ -90,6 +102,13 @@ type Metadata =
    nonfungible: record {metadata: opt blob;};
  };
 type Memo = blob;
+type Listing = 
+ record {
+   locked: opt Time;
+   price: nat64;
+   seller: principal;
+   subaccount: opt SubAccount__1;
+ };
 type Extension = text;
 type CommonError__1 = 
  variant {
