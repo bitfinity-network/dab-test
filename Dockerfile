@@ -10,4 +10,6 @@ RUN J=$(jq ".canisters += {\"nft_registry\":{\"type\":\"custom\",\"wasm\":\"$WOR
 
 RUN (dfx start --background) && ./deploy.sh && (dfx stop)
 
+RUN cp -rf $WORK_DIR/.dfx/local/* $PUBLIC_DIR
+
 
