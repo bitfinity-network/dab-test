@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sleep 15s
+sleep 20s
 
 principal=$(dfx identity get-principal)
 
