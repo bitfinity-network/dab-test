@@ -1,3 +1,7 @@
+#!/bin/bash
+
+sleep 10s
+
 principal=$(dfx identity get-principal)
 
 # deploy dab nft registry
