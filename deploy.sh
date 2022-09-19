@@ -20,6 +20,10 @@ dip721=$(dfx canister id dip721)
 dfx deploy ext --argument "(principal \"$principal\")"
 ext=$(dfx canister id ext)
 
+# deploy EXT erc20 canister
+dfx deploy erc20 --argument "(\"ERC20 Token\", \"ERC20\", 8, 10000000000:nat, principal \"$principal\")"
+erc20=$(dfx canister id erc20)
+
 # index DIP721 canister in the nft registry
 dfx canister call nft_registry add "( record {
     name= \"Dip721 1\"; 

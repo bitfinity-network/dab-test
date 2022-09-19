@@ -1,27 +1,31 @@
 {
-    "canisters": {
-      "nft_registry": {
-        "candid": "candid/nft_registry.did",
-        "wasm": "wasm/nft_registry.wasm",
-        "type": "custom"
-      },
-      "dip721": {
-        "candid": "candid/dip721.did",
-        "wasm": "wasm/dip721.wasm",
-        "type": "custom"
-      },
-      "ext": {
-          "candid": "candid/ext.did",
-          "wasm": "wasm/ext.wasm",
-          "type": "custom"
-      } 
+  "canisters": {
+    "nft_registry": {
+      "candid": "candid/nft_registry.did",
+      "wasm": "wasm/nft_registry.wasm",
+      "type": "custom"
     },
-    "networks": {
-      "local": {
-        "bind": "127.0.0.1:8000",
-        "type": "ephemeral"
-      }
+    "dip721": {
+      "candid": "candid/dip721.did",
+      "wasm": "wasm/dip721.wasm",
+      "type": "custom"
     },
-    "version": 1
-  }
-  
+    "ext": {
+      "candid": "candid/ext.did",
+      "wasm": "wasm/ext.wasm",
+      "type": "custom"
+    },
+    "erc20": {
+      "candid": "candid/erc20.did",
+      "wasm": "wasm/erc20.wasm",
+      "type": "custom"
+    }
+  },
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:8000",
+      "type": "ephemeral"
+    }
+  },
+  "version": 1
+}
