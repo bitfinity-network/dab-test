@@ -5,10 +5,10 @@ sleep 20s
 principal=$(dfx identity get-principal)
 
 # deploy dab nft registry
-dfx deploy nft_registry
+dfx deploy --no-wallet nft_registry
 
 # deploy DIP721 nft canister
-dfx deploy dip721 --argument '(opt record { 
+dfx deploy --no-wallet dip721 --argument '(opt record { 
     logo = opt "https://fleek.co"; 
     name = opt "dip 721"; 
     symbol = opt "DIP721v2"; 
@@ -17,11 +17,11 @@ dfx deploy dip721 --argument '(opt record {
 dip721=$(dfx canister id dip721)
 
 # deploy EXT nft canister
-dfx deploy ext --argument "(principal \"$principal\")"
+dfx deploy --no-wallet ext --argument "(principal \"$principal\")"
 ext=$(dfx canister id ext)
 
 # deploy EXT erc20 canister
-dfx deploy erc20 --argument "(\"ERC20 Token\", \"ERC20\", 8, 10000000000:nat, principal \"$principal\")"
+dfx deploy --no-wallet erc20 --argument "(\"ERC20 Token\", \"ERC20\", 8, 10000000000:nat, principal \"$principal\")"
 erc20=$(dfx canister id erc20)
 
 # index DIP721 canister in the nft registry
