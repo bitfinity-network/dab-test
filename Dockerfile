@@ -1,4 +1,4 @@
-FROM ghcr.io/infinity-swap/amm-dev:v4.0.80
+FROM ghcr.io/infinity-swap/amm-dev:v4.0.82
 
 COPY wasm/* ./wasm/
 COPY candid/* ./candid/
