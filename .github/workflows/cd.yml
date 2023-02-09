@@ -1,20 +1,20 @@
-
 name: "Build & Publish NFT Image & Artifacts"
 
 on:
   workflow_dispatch:
     # Just run it
-    
+
   push:
     branches:
-      - 'main'
+      - "main"
+      - "nft-artifacts"
     tags:
-      - 'v*'
-      - '!**-test'
-      - '!**-dev'
+      - "v*"
+      - "!**-test"
+      - "!**-dev"
 
 jobs:
-  upload:
+  upload-to-gh-artifacts:
     runs-on: ubuntu-latest
     name: Upload NFT Artifacts
     steps:
@@ -27,19 +27,33 @@ jobs:
           path: |
             ./wasm
             ./candid
-            
-  publish:
-    needs: [upload]
-    uses: infinity-swap/ci-wf/.github/workflows/publish-dev-image.yml@main
-    with:
-      input-artifact: nft-artifacts
-      dockerfile: ./Dockerfile
-      output-image-name: nft-dev
-      # Condition to use latest tag
-      output-image-tag-latest: ${{ github.ref_type == 'branch' && github.ref == 'refs/heads/main' }}
-      # Condition to publish docker image
-      push-image: ${{ (github.event_name != 'pull_request' && github.ref == 'refs/heads/main') ||  github.ref_type == 'tag' }}
 
-    secrets:
-      gh_token: ${{ secrets.GH_PKG_TOKEN }}
-      gh_login: ${{ secrets.GH_PKG_LOGIN }}
+  upload-to-gcs:
+    if: github.ref_name == 'nft-artifacts' || github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Artifacts tag
+        run: echo "ARTIFACTS_TAG=${{ github.ref_type == 'tag' && github.ref_name || 'latest' }}" >> $GITHUB_ENV
+
+      - name: Tar archive artifacts
+        uses: a7ul/tar-action@v1.1.0
+        with:
+          command: c
+          files: |
+            candid
+            wasm
+          outPath: nft-artifacts-${{ env.ARTIFACTS_TAG }}.tar.gz
+
+      - name: Auth gcloud
+        uses: "google-github-actions/auth@v1"
+        with:
+          credentials_json: ${{ secrets.GCP_JSON_DOCS_TOKEN }}
+
+      - name: Upload to gcs
+        uses: "google-github-actions/upload-cloud-storage@v1"
+        with:
+          path: nft-artifacts-${{ env.ARTIFACTS_TAG }}.tar.gz
+          destination: dfx-server_ic/nft-artifacts
